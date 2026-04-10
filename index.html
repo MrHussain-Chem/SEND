@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEND Personal Profiling — Evidence Base</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F6F8;--surf:#FFF;--surf2:#F0F2F5;--bdr:#E2E5EA;
+  --tx:#1A1D23;--tx2:#5A6071;--tx3:#8A92A0;
+  --blue:#185FA5;--blue-lt:#E6F1FB;--blue-dk:#0C447C;
+  --teal:#0B7B5C;--teal-lt:#E1F5EE;
+  --amber:#8A4F00;--amber-lt:#FFF0D6;
+  --red:#8B1F1F;--red-lt:#FDECEA;
+  --violet:#3C3489;--violet-lt:#EEEDFE;
+  --green:#2D5E10;--green-lt:#EAF3DE;
+  --r:12px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.05);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);font-size:15px;line-height:1.7}
+.site-hdr{background:var(--surf);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:200;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hdr-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:0 1.5rem}
+.logo{font-size:13px;font-weight:700;color:var(--blue);white-space:nowrap;padding:14px 0;letter-spacing:-.2px}
+.nav-sc{display:flex;overflow-x:auto;gap:0;flex:1}
+.ntab{padding:13px 15px;font-size:12.5px;font-weight:500;color:var(--tx2);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+.ntab:hover{color:var(--tx)}
+.ntab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.hero{background:linear-gradient(135deg,#0A3D72 0%,#185FA5 55%,#1E73C2 100%);color:#fff;padding:2.5rem 1.5rem}
+.hero-in{max-width:1160px;margin:0 auto}
+.hero h1{font-size:23px;font-weight:600;margin-bottom:6px}
+.hero p{font-size:14px;opacity:.85;max-width:600px}
+.hpills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hpill{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25)}
+.page{display:none;max-width:1160px;margin:0 auto;padding:2rem 1.5rem}
+.page.active{display:block}
+.stitle{font-size:18px;font-weight:600;margin:1.5rem 0 1rem}
+.stitle:first-child{margin-top:0}
+.sub{font-size:14px;font-weight:600;margin:1.25rem 0 .5rem;color:var(--tx)}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:1.5rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:1.5rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:1.5rem}
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:1.25rem;box-shadow:var(--sh)}
+.metric{background:var(--surf2);border-radius:var(--rs);padding:1rem;text-align:center}
+.mlbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.mval{font-size:26px;font-weight:700}
+.msub{font-size:11px;color:var(--tx3);margin-top:2px}
+.badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600}
+.b-red{background:var(--red-lt);color:var(--red)}
+.b-amber{background:var(--amber-lt);color:var(--amber)}
+.b-blue{background:var(--blue-lt);color:var(--blue-dk)}
+.b-violet{background:var(--violet-lt);color:var(--violet)}
+.b-teal{background:var(--teal-lt);color:var(--teal)}
+.b-green{background:var(--green-lt);color:var(--green)}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bar-lbl{font-size:12px;color:var(--tx2);width:140px;flex-shrink:0;text-align:right}
+.bar-trk{flex:1;height:9px;background:var(--surf2);border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;border-radius:5px}
+.bar-v{font-size:12px;font-weight:600;width:32px;flex-shrink:0}
+.sc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.sh{display:flex;align-items:flex-start;gap:12px;padding:1rem 1.25rem;cursor:pointer;user-select:none}
+.snum{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;background:var(--blue-lt);color:var(--blue-dk)}
+.snum.tc{background:var(--teal-lt);color:var(--teal)}
+.snum.vc{background:var(--violet-lt);color:var(--violet)}
+.stl{flex:1}.snm{font-size:14px;font-weight:600;line-height:1.4}.src{font-size:11px;color:var(--tx3);margin-top:2px}
+.chev{font-size:11px;color:var(--tx3);padding-top:4px;transition:transform .2s}
+.sbody{display:none;padding:1rem 1.25rem 1.25rem;border-top:1px solid var(--bdr);font-size:13px;color:var(--tx2);line-height:1.8}
+.sbody.open{display:block}
+.co{transform:rotate(180deg)}
+.sbody ul{padding-left:0;list-style:none}
+.sbody li{padding:3px 0 3px 16px;position:relative}
+.sbody li::before{content:"›";position:absolute;left:4px;color:var(--tx3)}
+.sbody strong,.card strong{font-weight:600;color:var(--tx)}
+.trw{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+.ti{background:var(--blue-lt);color:var(--blue-dk)}
+.ri{background:var(--amber-lt);color:var(--amber)}
+.sa{background:var(--green-lt);color:var(--green)}
+.wm{background:var(--violet-lt);color:var(--violet)}
+.ec{background:var(--red-lt);color:var(--red)}
+.fr{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.25rem;align-items:center}
+.flbl{font-size:12px;color:var(--tx3)}
+.fb{font-size:12px;padding:5px 13px;border-radius:20px;border:1px solid var(--bdr);background:var(--surf);cursor:pointer;color:var(--tx2);transition:.15s}
+.fb:hover{border-color:var(--blue);color:var(--blue)}
+.fb.active{background:var(--blue-lt);color:var(--blue-dk);border-color:#B5D4F4}
+.mw{overflow-x:auto;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:480px}
+th{font-size:11px;font-weight:600;color:var(--tx3);text-align:left;padding:8px 10px;border-bottom:2px solid var(--bdr);text-transform:uppercase;letter-spacing:.4px}
+td{padding:8px 10px;border-bottom:1px solid var(--bdr);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.ta-alert{background:linear-gradient(135deg,#FFF8ED,#FFF0D6);border:1px solid #F0C070;border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1.5rem}
+.ta-alert h3{font-size:15px;font-weight:600;color:#7A4200;margin-bottom:4px}
+.ta-alert p{font-size:13px;color:#8A5500}
+
+/* ── FIXED DO/DONT GRID ── */
+.dd-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:1.5rem}
+.dd-hdr{padding:10px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.dd-hdr.stop{background:var(--red-lt);color:var(--red)}
+.dd-hdr.start{background:var(--teal-lt);color:var(--teal)}
+.dd-cell{padding:10px 14px;font-size:13px;border-top:1px solid var(--bdr)}
+.dd-cell.stop{background:#FFFAFA;color:var(--tx2);border-right:1px solid var(--bdr)}
+.dd-cell.start{background:#FAFFFE;color:var(--tx2)}
+.dd-cell.stop::before{content:"✕  ";color:var(--red);font-weight:700}
+.dd-cell.start::before{content:"✓  ";color:var(--teal);font-weight:700}
+
+.qbank{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:1.5rem}
+.qb-phase{border-bottom:1px solid var(--bdr)}
+.qb-phase:last-child{border-bottom:none}
+.qb-lbl{padding:9px 16px;background:var(--surf2);font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px}
+.qb-qs{padding:10px 16px}
+.qb-q{font-size:13px;color:var(--tx2);padding:4px 0;display:flex;align-items:flex-start;gap:8px}
+.qb-q::before{content:'"';color:var(--blue);font-size:16px;line-height:1;flex-shrink:0;margin-top:1px}
+.hchain{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:1.5rem}
+.hci{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rs);padding:9px 13px;font-size:13px;font-weight:500;text-align:center;min-width:90px}
+.hci span{display:block;font-size:10px;color:var(--tx3);font-weight:400;margin-top:2px}
+.hca{font-size:18px;color:var(--tx3);padding:0 4px}
+.rec-c{display:flex;gap:14px;margin-bottom:12px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:1rem 1.25rem}
+.rec-n{width:32px;height:32px;border-radius:50%;background:var(--blue-lt);color:var(--blue-dk);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.rec-t{font-size:14px;font-weight:600;margin-bottom:4px}
+.rec-d{font-size:13px;color:var(--tx2)}
+.nasen-banner{background:var(--teal-lt);border:1px solid #9BDCC7;border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1.5rem}
+.nasen-banner h3{font-size:15px;font-weight:600;color:var(--teal);margin-bottom:4px}
+.nasen-banner p{font-size:13px;color:#1A6050}
+.ref-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rs);padding:12px 16px;margin-bottom:8px}
+.ref-card strong{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
+.ref-card p{font-size:12px;color:var(--tx2)}
+.ref-card a{color:var(--blue);text-decoration:none}
+.crw{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rs);padding:12px 16px;margin-bottom:10px}
+.crk{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.r1{background:var(--red-lt);color:var(--red)}
+.r2{background:var(--amber-lt);color:var(--amber)}
+.r3{background:var(--amber-lt);color:var(--amber)}
+.cw{position:relative;height:280px;margin-bottom:1.5rem}
+.cs{position:relative;height:220px}
+hr{border:none;border-top:1px solid var(--bdr);margin:2rem 0}
+
+/* TRAINEE TOOLS */
+.tool-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:1.25rem;margin-bottom:12px;box-shadow:var(--sh)}
+.tc-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.tc-ico{width:38px;height:38px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tc-meta{flex:1}
+.tc-name{font-size:15px;font-weight:600}
+.tc-ev{font-size:11px;margin-top:2px}
+.impact-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.impact-lbl{font-size:11px;color:var(--tx3);width:80px}
+.impact-track{flex:1;height:8px;background:var(--surf2);border-radius:4px;overflow:hidden}
+.impact-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#378ADD,#185FA5)}
+.impact-val{font-size:11px;font-weight:600;color:var(--blue);width:60px}
+.tool-steps{padding:0;list-style:none}
+.tool-step{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:13px}
+.tool-step:last-child{border-bottom:none}
+.step-n{width:22px;height:22px;border-radius:50%;background:var(--blue-lt);color:var(--blue-dk);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-tx{color:var(--tx2)}
+.warn-box{background:var(--amber-lt);border:1px solid #F0C070;border-radius:var(--rs);padding:10px 14px;font-size:13px;color:var(--amber);margin-top:10px}
+.info-box{background:var(--blue-lt);border:1px solid #B5D4F4;border-radius:var(--rs);padding:10px 14px;font-size:13px;color:var(--blue-dk);margin-top:10px}
+
+/* UK CONTEXT */
+.stat-row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--bdr);font-size:13px}
+.stat-row:last-child{border-bottom:none}
+.stat-ico{font-size:20px;flex-shrink:0;margin-top:2px}
+.stat-tx{color:var(--tx2)}
+.stat-tx strong{color:var(--tx);font-weight:600}
+.school-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:1.25rem;margin-bottom:12px}
+.school-name{font-size:15px;font-weight:600;margin-bottom:4px}
+.school-meta{font-size:12px;color:var(--tx3);margin-bottom:10px}
+.school-body{font-size:13px;color:var(--tx2)}
+
+@media(max-width:600px){
+  .dd-grid{grid-template-columns:1fr}
+  .dd-hdr.stop{border-bottom:none}
+  .dd-cell.stop{border-right:none;border-bottom:none}
+  .hchain{flex-direction:column;align-items:flex-start}
+  .hca{transform:rotate(90deg)}
+  .tc-head{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header class="site-hdr">
+  <div class="hdr-inner">
+    <div class="logo">SEND — Evidence Base</div>
+    <nav class="nav-sc">
+      <button class="ntab active" onclick="nav('ov',this)">Overview</button>
+      <button class="ntab" onclick="nav('da',this)">Data analysis</button>
+      <button class="ntab" onclick="nav('co',this)">Areas of concern</button>
+      <button class="ntab" onclick="nav('st',this)">Strategies</button>
+      <button class="ntab" onclick="nav('tt',this)">Trainee tools</button>
+      <button class="ntab" onclick="nav('ta',this)">TA guidance</button>
+      <button class="ntab" onclick="nav('ns',this)">nasen</button>
+      <button class="ntab" onclick="nav('of',this)">Ofsted 2025</button>
+      <button class="ntab" onclick="nav('uk',this)">UK context</button>
+      <button class="ntab" onclick="nav('rf',this)">References</button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-in">
+    <h1>SEND Personal Profiling — Questionnaire 1</h1>
+    <p>Executive functioning analysis and evidence-based intervention strategies — Key Stage 4</p>
+    <div class="hpills">
+      <span class="hpill">13 KS4 students</span>
+      <span class="hpill">11 EF domains assessed</span>
+      <span class="hpill">3 areas of concern</span>
+      <span class="hpill">15 evidence-based strategies</span>
+      <span class="hpill">EEF TA Guidance 2025</span>
+      <span class="hpill">Trainee teacher toolkit</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div id="page-ov" class="page active">
+  <p class="stitle">Cohort summary</p>
+  <div class="g4">
+    <div class="metric"><div class="mlbl">Students surveyed</div><div class="mval">13</div><div class="msub">Key Stage 4</div></div>
+    <div class="metric"><div class="mlbl">Domains assessed</div><div class="mval">11</div><div class="msub">Executive function</div></div>
+    <div class="metric"><div class="mlbl">Lowest average</div><div class="mval">4.69</div><div class="msub">Task initiation &amp; sustained attention</div></div>
+    <div class="metric"><div class="mlbl">Highest average</div><div class="mval">7.54</div><div class="msub">Organisation</div></div>
+  </div>
+  <p class="stitle">Domain averages (10-point scale)</p>
+  <div class="card" style="margin-bottom:1.5rem"><div id="scoreBars"></div></div>
+  <div class="g2">
+    <div>
+      <p class="stitle">Top 3 areas of concern</p>
+      <div class="crw"><div class="crk r1">1</div><div><strong>Task initiation</strong><div style="font-size:12px;color:var(--tx3)">Avg: 4.69 / 10 — joint lowest</div></div></div>
+      <div class="crw"><div class="crk r2">2</div><div><strong>Response inhibition</strong><div style="font-size:12px;color:var(--tx3)">Avg: 4.77 / 10</div></div></div>
+      <div class="crw"><div class="crk r3">3</div><div><strong>Sustained attention</strong><div style="font-size:12px;color:var(--tx3)">Avg: 4.69 / 10 — joint lowest</div></div></div>
+    </div>
+    <div>
+      <p class="stitle">Notable findings</p>
+      <div class="card" style="background:var(--violet-lt);border-color:#AFA9EC;margin-bottom:12px">
+        <div style="font-size:14px;font-weight:600;color:var(--violet);margin-bottom:4px">Planning &amp; prioritisation — most diverse (SD 3.13)</div>
+        <div style="font-size:13px;color:#534AB7">Scores ranged 1–9. Highly variable experiences indicate some students have strong skills while others struggle significantly. Differentiated, targeted support required — not whole-class approaches.</div>
+      </div>
+      <div class="card">
+        <strong style="font-size:14px;display:block;margin-bottom:8px">Qualitative observations</strong>
+        <div style="font-size:13px;color:var(--tx2)">
+          <div style="margin-bottom:8px"><span class="badge b-blue">Q2</span> Attention "depends if interesting" — motivation–attention link. Addressed directly by Self-Determination Theory (strategy 14).</div>
+          <div style="margin-bottom:8px"><span class="badge b-amber">Q6/Q7</span> "Very lazy" self-reports — possible learned helplessness. Autonomy-supportive teaching is critical here.</div>
+          <div><span class="badge b-green">Q8</span> "Depends on complexity" — metacognitive awareness present and ready to build on.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA ANALYSIS -->
+<div id="page-da" class="page">
+  <p class="stitle">Individual question breakdown</p>
+  <div class="fr"><span class="flbl">Select question:</span><div id="qBtns" style="display:flex;flex-wrap:wrap;gap:6px"></div></div>
+  <div class="g2">
+    <div class="card"><div class="sub" id="pieTitle">Q1 — Working memory</div><div class="cs"><canvas id="pieChart"></canvas></div></div>
+    <div class="card"><div class="sub">Score statistics</div><div id="statsBox"></div></div>
+  </div>
+  <p class="stitle">Comparative averages</p>
+  <div class="card"><div class="cw"><canvas id="barChart"></canvas></div></div>
+  <p class="stitle">Response diversity (standard deviation)</p>
+  <div class="card"><div style="position:relative;height:260px"><canvas id="sdChart"></canvas></div></div>
+</div>
+
+<!-- CONCERNS -->
+<div id="page-co" class="page">
+  <p class="stitle">Detailed concern analysis</p>
+  <div class="g3">
+    <div class="card"><span class="badge b-red" style="margin-bottom:8px">Rank 1</span><div style="font-size:15px;font-weight:600;margin-bottom:4px">Task initiation</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Avg 4.69 · SD 2.86</div><div style="font-size:13px;color:var(--tx2)">Students struggle to begin tasks independently. Affects output quality, time-on-task, and learning engagement. Linked to motivation and sense of efficacy.</div></div>
+    <div class="card"><span class="badge b-red" style="margin-bottom:8px">Rank 2</span><div style="font-size:15px;font-weight:600;margin-bottom:4px">Response inhibition</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Avg 4.77 · SD 2.09</div><div style="font-size:13px;color:var(--tx2)">Difficulty controlling impulses — calling out, acting before thinking. Affects both classroom dynamics and the student's own self-regulation of learning.</div></div>
+    <div class="card"><span class="badge b-amber" style="margin-bottom:8px">Rank 3</span><div style="font-size:15px;font-weight:600;margin-bottom:4px">Sustained attention</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Avg 4.69 · SD 2.02</div><div style="font-size:13px;color:var(--tx2)">Maintaining focus is difficult. Students flagged context-dependency (interest-driven). Sustained attention underpins all other executive functions.</div></div>
+  </div>
+  <p class="stitle">Strategy-to-concern mapping</p>
+  <div class="mw card"><table><thead><tr><th>Strategy</th><th>Source</th><th style="text-align:center">Task initiation</th><th style="text-align:center">Response inhibition</th><th style="text-align:center">Sustained attention</th></tr></thead><tbody id="mapBody"></tbody></table></div>
+  <p class="stitle">Full domain statistics</p>
+  <div class="mw card"><table><thead><tr><th>Domain</th><th>Avg</th><th>SD</th><th>Min</th><th>Max</th><th>Status</th></tr></thead><tbody id="statsBody"></tbody></table></div>
+</div>
+
+<!-- STRATEGIES -->
+<div id="page-st" class="page">
+  <p class="stitle">Evidence-based classroom strategies</p>
+  <div class="fr"><span class="flbl">Filter:</span>
+    <button class="fb active" onclick="fS('all',this)">All</button>
+    <button class="fb" onclick="fS('ti',this)">Task initiation</button>
+    <button class="fb" onclick="fS('ri',this)">Response inhibition</button>
+    <button class="fb" onclick="fS('sa',this)">Sustained attention</button>
+    <button class="fb" onclick="fS('wm',this)">Working memory</button>
+    <button class="fb" onclick="fS('ec',this)">Emotional control</button>
+  </div>
+  <div id="stratList"></div>
+</div>
+
+<!-- TRAINEE TOOLS -->
+<div id="page-tt" class="page">
+  <p class="stitle">Trainee teacher toolkit — research-proven strategies for every lesson</p>
+  <div class="card" style="margin-bottom:1.5rem;border-left:3px solid var(--blue)">
+    <strong style="font-size:14px;font-weight:600;display:block;margin-bottom:6px">How to use this page</strong>
+    <div style="font-size:13px;color:var(--tx2)">Every strategy listed here has direct RCT or meta-analysis evidence and is applicable from day one of teaching. Crucially, all benefit students with SEND <em>and</em> raise outcomes for the whole class. This is not a bolt-on list — these are core teaching habits to build and make automatic. Strategies are rated using the EEF Teaching and Learning Toolkit where applicable. Only approaches with proven whole-class efficacy are included.</div>
+  </div>
+  <div id="ttList"></div>
+</div>
+
+<!-- TA GUIDANCE -->
+<div id="page-ta" class="page">
+  <p class="stitle">Teaching assistant guidance</p>
+  <div class="ta-alert">
+    <h3>The evidence problem with unstructured TA deployment</h3>
+    <p>Research consistently shows that unstructured TA deployment — sitting beside students, copying notes, or completing tasks for them — leads to <strong>negative effects on pupil independence and attainment</strong> (Blatchford et al. DISS Project; EEF, 2025). The EEF's updated 2025 guidance (52 studies) is unequivocal: TAs supplement teaching; they do not replace it. A DfE 2024 survey found 23% of secondary TAs feel insufficiently trained for their role. This page provides the actionable tools drawn directly from that evidence base.</p>
+  </div>
+  <p class="stitle">EEF Deployment of Teaching Assistants — 5 recommendations (2025)</p>
+  <div id="eefRecs"></div>
+  <hr>
+  <p class="stitle">Stop / Start: behaviours to eliminate and replace</p>
+  <div class="dd-grid" id="ddGrid"></div>
+  <hr>
+  <p class="stitle">The "Least Help First" escalation framework</p>
+  <p style="font-size:13px;color:var(--tx2);margin-bottom:1rem">TAs must always begin at the left and only move right when the previous level has not been sufficient. Jumping to the right undermines independence.</p>
+  <div class="hchain" id="helpChain"></div>
+  <div class="card" style="margin-bottom:1.5rem;border-left:3px solid var(--blue)">
+    <strong style="font-size:13px;display:block;margin-bottom:6px">Brain → Board → Book → Buddy → Boss (EEF, 2025)</strong>
+    <div style="font-size:13px;color:var(--tx2)">Before asking for help: <strong>Brain</strong> (what do I know?) → <strong>Board</strong> (is it displayed?) → <strong>Book</strong> (in my notes?) → <strong>Buddy</strong> (ask a peer) → <strong>Boss</strong> (ask teacher/TA). TAs coach students through this sequence rather than shortcutting to the answer.</div>
+  </div>
+  <hr>
+  <p class="stitle">Metacognitive questioning bank</p>
+  <p style="font-size:13px;color:var(--tx2);margin-bottom:1rem">Replace all closed questions ("Do you understand?", "Shall I help?") with these. Print and laminate for TA lanyards.</p>
+  <div class="qbank" id="qBank"></div>
+  <hr>
+  <p class="stitle">15-minute pre-lesson briefing protocol</p>
+  <div class="g2">
+    <div class="card">
+      <strong style="font-size:14px;display:block;margin-bottom:10px">The briefing should cover:</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">📌 Lesson objective and learning steps</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">📌 Which students are likely to struggle and why</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">📌 Which scaffolds to use and when to deploy them</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">📌 When the TA should step back and allow productive struggle</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">📌 Which students the TA monitors vs. teacher monitors</li>
+        <li style="padding:5px 0">📌 Key vocabulary to pre-teach before the lesson starts</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong style="font-size:14px;display:block;margin-bottom:10px">Structured interventions: where TAs have the strongest evidence</strong>
+      <div style="font-size:13px;color:var(--tx2);margin-bottom:10px">Meta-analysis (EEF, 2025): structured TA-led 1:1 or small-group interventions produce an average effect size of <strong style="color:var(--blue)">+0.35</strong> (~4 months additional progress).</div>
+      <div style="font-size:13px;color:var(--tx2)">Required conditions: a structured evidence-based programme · explicit TA training · regular uninterrupted sessions · shared progress monitoring · teacher review · student does not miss core instruction to attend.</div>
+    </div>
+  </div>
+  <hr>
+  <p class="stitle">Scaffolding for independence — graduated release</p>
+  <div class="g3">
+    <div class="card" style="border-top:3px solid var(--blue)"><div style="font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;margin-bottom:8px">Stage 1 — Model</div><div style="font-size:13px;color:var(--tx2)">TA thinks aloud completing a similar task. Student watches. No output expected yet.</div></div>
+    <div class="card" style="border-top:3px solid var(--teal)"><div style="font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:8px">Stage 2 — Guided practice</div><div style="font-size:13px;color:var(--tx2)">TA and student work together. TA uses metacognitive questions. Student contributes most of the thinking.</div></div>
+    <div class="card" style="border-top:3px solid var(--amber)"><div style="font-size:12px;font-weight:700;color:var(--amber);text-transform:uppercase;margin-bottom:8px">Stage 3 — Supported independence</div><div style="font-size:13px;color:var(--tx2)">Student works alone. TA observes from a distance and intervenes only after a 60-second productive struggle window.</div></div>
+  </div>
+</div>
+
+<!-- NASEN -->
+<div id="page-ns" class="page">
+  <p class="stitle">nasen strategies &amp; guidance</p>
+  <div class="nasen-banner"><h3>About nasen</h3><p>nasen (National Association for Special Educational Needs) is the UK's leading professional body for SEND. Strategies below are drawn from the nasen Teacher Toolkit of Strategies and the Whole School SEND Teacher Handbook: Embedding Inclusive Practice (2nd edition, DfE-funded). Free download at nasen.org.uk.</p></div>
+  <div id="nasenList"></div>
+  <hr>
+  <div class="card"><div style="font-size:14px;font-weight:600;margin-bottom:8px">Teacher Handbook: SEND — Embedding inclusive practice (2nd edition)</div><div style="font-size:13px;color:var(--tx2);margin-bottom:10px">DfE-funded resource covering inclusive environments, subject-specific secondary guidance, the graduated approach, scaffolding by area of need, and teacher wellbeing.</div><a href="https://nasen.org.uk/resources/teacher-handbook-send" target="_blank" style="font-size:13px;padding:7px 14px;border-radius:var(--rs);border:1px solid var(--bdr);background:var(--surf);color:var(--tx);text-decoration:none;display:inline-block">Visit nasen.org.uk ↗</a></div>
+</div>
+
+<!-- OFSTED 2025 -->
+<div id="page-of" class="page">
+  <p class="stitle">Ofsted framework 2025 — what changed and what it means for SEND</p>
+  <div class="card" style="margin-bottom:1.5rem;border-left:3px solid var(--blue)">
+    <strong style="font-size:14px;display:block;margin-bottom:6px">The biggest inspection reform in a decade — in effect from 10 November 2025</strong>
+    <div style="font-size:13px;color:var(--tx2)">Single-word grades (Outstanding / Good / Requires Improvement / Inadequate) have been abolished. Every school now receives a detailed <strong>report card</strong> graded across up to 11 evaluation areas. For the first time, <strong>Inclusion is a standalone evaluation area</strong> — it is no longer buried inside other judgements. Sir Martyn Oliver, HMCI, has stated he wants the framework to produce "a system-wide behaviour shift on inclusion".</div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.5rem">
+    <div>
+      <p class="stitle" style="font-size:16px">The 5-point grading scale</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="card" style="border-left:4px solid #185FA5;padding:.9rem 1rem">
+          <div style="font-size:14px;font-weight:700;color:var(--blue)">Exceptional</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:3px">Practice "among the very best nationally, which should be shared with other schools." Ofsted expects this to be very rarely awarded — it signals a national centre of excellence.</div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--teal);padding:.9rem 1rem">
+          <div style="font-size:14px;font-weight:700;color:var(--teal)">Strong standard</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:3px">All expected and strong standards met. Excellent, consistent work making a real difference for pupils.</div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green);padding:.9rem 1rem">
+          <div style="font-size:14px;font-weight:700;color:var(--green)">Expected standard</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:3px">The school is doing everything it should be doing. A high bar — not a mediocre rating. Inspectors stress this means "doing the right things consistently and well".</div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--amber);padding:.9rem 1rem">
+          <div style="font-size:14px;font-weight:700;color:var(--amber)">Needs attention</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:3px">Work required to reach expected standard. Not a fail — triggers monitoring inspections to track improvement.</div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--red);padding:.9rem 1rem">
+          <div style="font-size:14px;font-weight:700;color:var(--red)">Urgent improvement</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:3px">Significant failures. Regional improvement teams deploy up to £100,000 support per school. Reserved for extreme cases.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="stitle" style="font-size:16px">Core evaluation areas</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="card" style="padding:.9rem 1rem"><div style="font-size:13px;font-weight:600;margin-bottom:3px">1. Achievement</div><div style="font-size:12px;color:var(--tx2)">What pupils know and can do; progress over time; outcomes for all groups including SEND and disadvantaged.</div></div>
+        <div class="card" style="padding:.9rem 1rem"><div style="font-size:13px;font-weight:600;margin-bottom:3px">2. Curriculum and teaching</div><div style="font-size:12px;color:var(--tx2)">Curriculum design, sequencing, and accessibility. Whether teaching meets the needs of all learners. Scaffolding and adaptive practice.</div></div>
+        <div class="card" style="padding:.9rem 1rem"><div style="font-size:13px;font-weight:600;margin-bottom:3px">3. Attendance and behaviour</div><div style="font-size:12px;color:var(--tx2)">Previously separate — now combined. Inspectors assess how schools foster positive relationships and routines to reduce absence and improve engagement.</div></div>
+        <div class="card" style="padding:.9rem 1rem"><div style="font-size:13px;font-weight:600;margin-bottom:3px">4. Personal development and wellbeing</div><div style="font-size:12px;color:var(--tx2)">Character development, resilience, SMSC, health, relationships education. Staff wellbeing is now formally assessed here too.</div></div>
+        <div class="card" style="border:2px solid var(--blue);padding:.9rem 1rem;background:var(--blue-lt)"><div style="font-size:13px;font-weight:700;color:var(--blue-dk);margin-bottom:3px">5. Inclusion ★ STANDALONE — new</div><div style="font-size:12px;color:var(--blue-dk)">How well the school identifies and supports pupils facing barriers. Assessed for all pupils: SEND, disadvantaged, pupil premium, LAC/PLAC, EAL. Inclusion is no longer embedded in other judgements — it has its own grade.</div></div>
+        <div class="card" style="padding:.9rem 1rem"><div style="font-size:13px;font-weight:600;margin-bottom:3px">6. Leadership and governance</div><div style="font-size:12px;color:var(--tx2)">Strategic vision, CPD, accountability, evidence-informed decision-making. Quality of SENDCo integration into leadership assessed here.</div></div>
+        <div class="card" style="padding:.9rem 1rem;background:var(--surf2)"><div style="font-size:13px;font-weight:600;margin-bottom:3px">Safeguarding — Met / Not Met (separate)</div><div style="font-size:12px;color:var(--tx2)">Judged separately on a binary scale across six areas: leadership, staff training, record-keeping, safer recruitment, governance, and culture of vigilance.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <p class="stitle">What inspectors look for in Inclusion — the SEND-critical area</p>
+  <p style="font-size:13px;color:var(--tx2);margin-bottom:1rem">The inclusion evaluation area is directly aligned with SEND provision quality. Inspectors will want to see evidence of practice, not paperwork. The SENCO will play a central role in inspection conversations under this framework.</p>
+  <div class="g3">
+    <div class="card">
+      <strong style="font-size:13px;display:block;margin-bottom:8px;color:var(--blue)">Identification and planning</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Robust, timely SEND identification processes</li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Support plans that reflect individual needs — not generic</li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Evidence of the graduated approach (Assess–Plan–Do–Review)</li>
+        <li style="padding:4px 0">EHC plans reviewed and updated meaningfully</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong style="font-size:13px;display:block;margin-bottom:8px;color:var(--blue)">In-classroom practice</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Curriculum accessible for all — not parallel, separate work</li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Adaptive teaching embedded, not bolted on</li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Scaffolding used and withdrawn — not permanent crutches</li>
+        <li style="padding:4px 0">TA deployment evidence-aligned (not proximity-based)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong style="font-size:13px;display:block;margin-bottom:8px;color:var(--blue)">Outcomes and belonging</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">SEND pupils achieve, attend, and feel they belong</li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Attendance and exclusion data disaggregated by SEND type</li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--bdr)">Collaboration with parents/carers and external specialists</li>
+        <li style="padding:4px 0">Pupil voice: SEND students can describe how they are supported</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.5rem;background:var(--amber-lt);border-color:#F0C070">
+    <strong style="font-size:14px;font-weight:600;display:block;margin-bottom:6px;color:var(--amber)">The "secure-fit" model — a significant change from "best-fit"</strong>
+    <div style="font-size:13px;color:var(--amber)">Under the new framework, inspectors use a secure-fit model: <em>every criterion within a grade band must be met</em> to achieve that grade. Under the old "best-fit" approach, schools could compensate for weaknesses with strengths elsewhere. This means a single weak area in Inclusion will hold a school at "expected standard" even if everything else is "strong". Schools must ensure SEND provision is genuinely strong across all criteria, not strong in some areas and weak in others.</div>
+  </div>
+
+  <hr>
+  <p class="stitle">Key implications for your practice</p>
+  <div class="g2">
+    <div class="card">
+      <strong style="font-size:14px;display:block;margin-bottom:10px">For teachers</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ Inspectors will observe how you adapt teaching in real time — adaptive teaching is no longer optional</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ Be ready to explain your approaches to SEND pupils to an inspector — not your policy, your actual practice</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ Inclusion is not a SENCO issue — every teacher's classroom will be evidence for the Inclusion grade</li>
+        <li style="padding:5px 0">✦ Curriculum accessibility is assessed directly: can all pupils, including those with SEND, access and make progress through your curriculum?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong style="font-size:14px;display:block;margin-bottom:10px">For the SENCO and leadership</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ The SENCO will speak directly with inspectors — inclusion strategy, graduated approach, and impact evidence must be clear and current</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ Pupil premium strategy must show evidence of impact, not just intent — inspectors will scrutinise outcomes</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ TA deployment must align with evidence — proximity-based support will be noted negatively</li>
+        <li style="padding:5px 0">✦ Attendance for SEND subgroups will be examined — data disaggregated by EHC/SEN support/no SEN is essential</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+  <p class="stitle">First wave results — what the data shows (January 2026)</p>
+  <div class="card" style="margin-bottom:1rem">
+    <div style="font-size:13px;color:var(--tx2);margin-bottom:12px">In January 2026, Ofsted published the first 22 report cards for volunteer schools inspected in November 2025. Analysis of the 150 individual grades awarded reveals important patterns for schools to understand.</div>
+    <div class="g4" style="margin-bottom:0">
+      <div class="metric"><div class="mlbl">Schools inspected</div><div class="mval">22</div><div class="msub">Nov 2025 volunteer wave</div></div>
+      <div class="metric"><div class="mlbl">"Exceptional" grades</div><div class="mval">9</div><div class="msub">Across 3 schools</div></div>
+      <div class="metric"><div class="mlbl">Most common grade</div><div class="mval">Expected</div><div class="msub">79 of 150 grades awarded</div></div>
+      <div class="metric"><div class="mlbl">"Urgent improvement"</div><div class="mval">0</div><div class="msub">None in first wave</div></div>
+    </div>
+  </div>
+  <div class="card" style="font-size:13px;color:var(--tx2)"><strong style="color:var(--text)">Key finding:</strong> Curriculum and teaching and Achievement were the two areas where schools were least likely to achieve a top-two grade — 15 of 22 schools were at "expected standard" for curriculum and teaching. Inclusion, by contrast, was where the highest-performing schools scored best. This is an early signal that high-quality inclusive practice and strong curriculum design are the two areas most likely to differentiate schools under the new framework.</div>
+</div>
+
+<!-- UK CONTEXT -->
+<div id="page-uk" class="page">
+  <p class="stitle">UK schools context — what the national evidence shows</p>
+  <div class="card" style="margin-bottom:1.5rem;border-left:3px solid var(--red)">
+    <strong style="font-size:15px;font-weight:600;display:block;margin-bottom:8px">The honest picture: the attainment gap has not closed</strong>
+    <div style="font-size:13px;color:var(--tx2)">Despite decades of SEND policy reform, the national attainment gap between students with and without SEND has remained large and has slightly widened. This context is important: improvement is possible, but there are no quick fixes, and no named programme has been shown by rigorous RCT to close this gap at scale. The strategies in this resource are drawn from the best available evidence on what works at the classroom level.</div>
+  </div>
+
+  <p class="stitle">National attainment data</p>
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="stat-row"><div class="stat-ico">📊</div><div class="stat-tx"><strong>50 percentage point gap (2023/24)</strong> — 72% of students with no identified SEN met expected standards vs. 22% with an EHC plan or SEN support. This gap was 48pp in 2015/16 and has not narrowed (Parliament Education Committee, 2024).</div></div>
+    <div class="stat-row"><div class="stat-ico">📉</div><div class="stat-tx"><strong>Achievement for All — negative RCT result (EEF)</strong> — The most prominent whole-school SEND improvement programme produced 2 months' <em>less</em> progress in reading and maths for targeted children compared to control schools. This underscores why individual classroom strategies grounded in cognitive science matter more than branded programmes.</div></div>
+    <div class="stat-row"><div class="stat-ico">📋</div><div class="stat-tx"><strong>Persistent absence disproportionately affects SEND pupils</strong> — 34% of pupils with EHC plans are persistently absent (2023/24) vs 14.7% of non-SEND pupils. Addressing attendance is inseparable from addressing attainment for this group.</div></div>
+    <div class="stat-row"><div class="stat-ico">⚠️</div><div class="stat-tx"><strong>SEND identification is rising</strong> — 1.7 million pupils (17.5% of school population) are now identified with SEND in England. 93% of schools plan to increase TA numbers in response. Without training, this risks replicating the patterns the DISS project identified as harmful.</div></div>
+  </div>
+
+  <p class="stitle">What school-level research shows does work</p>
+  <p style="font-size:13px;color:var(--tx2);margin-bottom:1rem">Rather than naming specific schools (attainment data for SEND subgroups at school level is rarely published consistently enough to verify claims), the strongest evidence comes from research on the characteristics of schools where all pupils, including those with SEND, make stronger progress.</p>
+  <div class="g2">
+    <div class="card">
+      <strong style="font-size:14px;display:block;margin-bottom:10px">School characteristics linked to stronger SEND outcomes</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:6px 0;border-bottom:1px solid var(--bdr)">✦ <strong>High-quality teaching as the primary lever</strong> — EEF consistently identifies classroom instruction quality as the strongest school-level factor for SEND outcomes, above any specialist programme or TA deployment model</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Frequent peer classroom observation</strong> — Schools where teachers observe each other regularly show greater Progress 8 gains; leadership observation alone does not have the same effect (Taylor et al., 2024)</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Evidence-informed decision-making at leadership level</strong> — School leaders of high-progress schools consistently cite use of research evidence as a driver of their schools' effectiveness</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Shared, consistent language across the school</strong> — Strategies like Zones of Regulation and metacognitive questioning only produce strong effects when used consistently school-wide, not by individual teachers</li>
+        <li style="padding:6px 0">✦ <strong>SENCO with genuine influence on teaching &amp; learning</strong> — Not just administrative. Effective SENCOs drive CPD, build TA capacity, and link strategy to classroom practice (EEF / nasen, 2025)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <strong style="font-size:14px;display:block;margin-bottom:8px">The London effect on SEND outcomes</strong>
+        <div style="font-size:13px;color:var(--tx2)">Research consistently shows a "London effect" on Progress 8 scores. The London Borough of Barking and Dagenham (LBBD) is one documented example: SEND pupils' attainment on headline measures at EYFS and KS2 was above the England average in 2024/25, with the borough ranking 1st nationally for 3-year improvement across all pupils (LBBD Education Performance Report, 2025). This is attributed to sustained CPD investment, borough-wide consistency in strategy implementation, and a strong SEND inclusion framework — not any single programme.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <p class="stitle">Verified case study: Leigh Academy Halley, south-east London</p>
+  <div class="card" style="margin-bottom:1rem;border-left:3px solid var(--blue)">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+      <span class="badge b-blue">Secondary 11–18</span>
+      <span class="badge b-teal">5 × Exceptional (Ofsted 2025)</span>
+      <span class="badge b-amber">40% FSM eligible</span>
+      <span class="badge b-red">Above-average EHC plans</span>
+      <span class="badge b-violet">30%+ EAL</span>
+      <span class="badge b-green">Kidbrooke, South-East London</span>
+    </div>
+    <div style="font-size:13px;color:var(--tx2);margin-bottom:10px">Leigh Academy Halley was one of the first schools inspected under Ofsted's new November 2025 framework — as a volunteer school. It received "exceptional" in five areas: attendance and behaviour, inclusion, leadership and governance, personal development and wellbeing, and post-16 provision. Teaching and curriculum and achievement were graded "strong standard". Inspectors described it as "an exceptionally inclusive school" where "all pupils are welcome, and all are catered for extremely well" — producing "a transformational impact on the extent to which all pupils succeed personally and academically."</div>
+    <div style="font-size:13px;color:var(--tx2)">This is not a selective or low-need school. It serves one of the most deprived wards in the country, with above-average EHCP numbers, 40% FSM eligibility, 30%+ EAL students, and many pupils joining mid-year with gaps in learning. The outcome is therefore a genuine reflection of inclusive practice, not favourable intake.</div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <strong style="font-size:14px;display:block;margin-bottom:10px">What the school did — 7 years of sustained work</strong>
+      <ul style="font-size:13px;color:var(--tx2);list-style:none;padding:0">
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Inclusion at the centre of every decision</strong> — not a bolt-on policy, but the starting point for all leadership choices including timetabling, staffing, and curriculum</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Calm, orderly, consistent culture</strong> built from scratch over 7 years after joining Leigh Academies Trust in 2018 with low family confidence and inconsistent routines</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ <strong>High expectations for all pupils including SEND</strong> — never lowering the bar, but matching ambition with structured support</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ <strong>"Small school" model</strong> — every student is known well by staff; strong staff–student relationships are structural, not incidental</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Proactive attendance systems</strong> — robust processes, relentless family communication, and swift supportive intervention achieve above-national attendance including for SEND and disadvantaged pupils</li>
+        <li style="padding:5px 0;border-bottom:1px solid var(--bdr)">✦ <strong>Comprehensive transition and induction programme</strong> for mid-year joiners and pupils with additional needs including autism — not a standard "first day" approach</li>
+        <li style="padding:5px 0">✦ <strong>Trust-level support</strong>: subject specialist curriculum advisers, leadership development forums, central services that free teachers to focus on teaching, inclusion, and outcomes</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px;background:var(--blue-lt);border-color:#B5D4F4">
+        <strong style="font-size:14px;display:block;margin-bottom:8px;color:var(--blue-dk)">Ofsted's exact words on inclusion and SEND</strong>
+        <div style="font-size:13px;color:var(--blue-dk);font-style:italic;margin-bottom:8px">"This is an exceptionally inclusive school. All pupils are welcome, and all are catered for extremely well. This has a transformational impact on the extent to which all pupils succeed personally and academically during their time at the school and beyond."</div>
+        <div style="font-size:13px;color:var(--blue-dk);font-style:italic;margin-bottom:8px">"Leaders are exceedingly successful in removing barriers to attendance."</div>
+        <div style="font-size:13px;color:var(--blue-dk);font-style:italic">"The school's success in developing all pupils' character is remarkable."</div>
+      </div>
+      <div class="card" style="background:var(--teal-lt);border-color:#9BDCC7">
+        <strong style="font-size:14px;display:block;margin-bottom:8px;color:var(--teal)">What this means for your school</strong>
+        <div style="font-size:13px;color:#1A6050">The Halley case study demonstrates that exceptional SEND and inclusion outcomes are achievable in high-need, diverse, urban comprehensive schools — but require sustained, multi-year commitment at leadership level. There are no short-cuts: the 7-year transformation timeline is itself the finding. The strategies in this resource — consistent routines, high expectations, strong relationships, adaptive teaching, and evidence-aligned TA deployment — are all visible in what Halley describes. The variable is whether they are implemented consistently, school-wide, over time.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFERENCES -->
+<div id="page-rf" class="page">
+  <p class="stitle">Key sources &amp; references</p>
+  <div id="refList"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── DATA ──────────────────────────────────────────────────────────
+const RAW={
+  "Q1 Working memory":[2,8,5,4,7,3,6,5,4,3,6,7,8],
+  "Q2 Sustained attention":[5,3,8,1,5,7,7,7,5,5,4,2,2],
+  "Q3 Response inhibition":[2,6,6,3,4,4,7,7,5,2,2,8,4],
+  "Q4 Flexibility":[9,7,9,4,3,8,8,7,6,6,5,9,3],
+  "Q5 Task initiation":[5,8,5,6,4,4,4,6,2,10,1,1,5],
+  "Q6 Emotional control":[9,6,4,5,4,8,4,8,7,4,8,5,2],
+  "Q7 Goal-directed persistence":[2,7,4,5,8,1,7,7,7,2,9,9,8],
+  "Q8 Metacognition":[7,8,1,7,8,5,6,7,6,6,5,3,5],
+  "Q9 Planning & prioritisation":[1,6,4,3,5,8,9,9,6,1,9,9,8],
+  "Q10 Organisation":[5,10,10,8,7,9,9,9,2,3,9,6,10],
+  "Q11 Time management":[3,3,9,3,5,1,7,7,7,1,10,9,6]
+};
+const KEYS=Object.keys(RAW);
+const avg=a=>a.reduce((s,v)=>s+v,0)/a.length;
+const sd=a=>{const m=avg(a);return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/a.length)};
+const STATS=KEYS.map(k=>({name:k,scores:RAW[k],avg:+avg(RAW[k]).toFixed(2),sd:+sd(RAW[k]).toFixed(2),min:Math.min(...RAW[k]),max:Math.max(...RAW[k])}));
+const CONCERNS=['Q5 Task initiation','Q3 Response inhibition','Q2 Sustained attention'];
+const DIVERSE='Q9 Planning & prioritisation';
+const TL={ti:'Task initiation',ri:'Response inhibition',sa:'Sustained attention',wm:'Working memory',ec:'Emotional control'};
+
+// NAV
+function nav(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// BARS
+function buildBars(){
+  const c=document.getElementById('scoreBars');
+  STATS.forEach(s=>{
+    const pct=(s.avg/10)*100;
+    const col=CONCERNS.includes(s.name)?'#E24B4A':s.name===DIVERSE?'#7F77DD':'#378ADD';
+    c.innerHTML+=`<div class="bar-row"><div class="bar-lbl">${s.name.replace(/Q\d+ /,'')}</div><div class="bar-trk"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div><div class="bar-v">${s.avg}</div></div>`;
+  });
+}
+
+// CHARTS
+const COLS=STATS.map(s=>CONCERNS.includes(s.name)?'#E24B4A':s.name===DIVERSE?'#7F77DD':'#378ADD');
+const LBLS=KEYS.map((_,i)=>'Q'+(i+1));
+let piI=null,baI=null,sdI=null;
+function buildCharts(){
+  const bc=document.getElementById('barChart').getContext('2d');
+  baI=new Chart(bc,{type:'bar',data:{labels:LBLS,datasets:[{label:'Avg',data:STATS.map(s=>s.avg),backgroundColor:COLS,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:i=>[KEYS[i[0].dataIndex]],label:i=>'Avg: '+i.raw+' / 10'}}},scales:{y:{min:0,max:10,ticks:{color:'#8A92A0'},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{color:'#8A92A0'},grid:{display:false}}}}});
+  const sc=document.getElementById('sdChart').getContext('2d');
+  sdI=new Chart(sc,{type:'bar',data:{labels:LBLS,datasets:[{label:'SD',data:STATS.map(s=>s.sd),backgroundColor:STATS.map(s=>s.name===DIVERSE?'#7F77DD':'#B5D4F4'),borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:i=>[KEYS[i[0].dataIndex]],label:i=>'SD: '+i.raw}}},scales:{y:{ticks:{color:'#8A92A0'},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{color:'#8A92A0'},grid:{display:false}}}}});
+  buildQBtns();buildPie(0);
+}
+function buildQBtns(){
+  const c=document.getElementById('qBtns');
+  KEYS.forEach((k,i)=>{const b=document.createElement('button');b.className='fb'+(i===0?' active':'');b.textContent='Q'+(i+1);b.onclick=()=>{document.querySelectorAll('#qBtns .fb').forEach(x=>x.classList.remove('active'));b.classList.add('active');buildPie(i)};c.appendChild(b)});
+}
+function buildPie(i){
+  const s=STATS[i];
+  document.getElementById('pieTitle').textContent='Q'+(i+1)+' — '+s.name.replace(/Q\d+ /,'');
+  const counts={};s.scores.forEach(v=>{counts[v]=(counts[v]||0)+1});
+  const labs=Object.keys(counts).sort((a,b)=>a-b);
+  const vals=labs.map(l=>counts[l]);
+  const PC=['#E24B4A','#BA7517','#EF9F27','#639922','#378ADD','#7F77DD','#D4537E','#1D9E75','#185FA5','#533AB7'];
+  if(piI)piI.destroy();
+  piI=new Chart(document.getElementById('pieChart').getContext('2d'),{type:'pie',data:{labels:labs.map(l=>'Score '+l),datasets:[{data:vals,backgroundColor:PC.slice(0,labs.length),borderWidth:1,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:10,padding:8}}}}});
+  const isCon=CONCERNS.includes(s.name),isDiv=s.name===DIVERSE;
+  document.getElementById('statsBox').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+    <div class="metric"><div class="mlbl">Average</div><div class="mval" style="font-size:22px">${s.avg}</div></div>
+    <div class="metric"><div class="mlbl">Std deviation</div><div class="mval" style="font-size:22px">${s.sd}</div></div>
+    <div class="metric"><div class="mlbl">Min</div><div class="mval" style="font-size:22px">${s.min}</div></div>
+    <div class="metric"><div class="mlbl">Max</div><div class="mval" style="font-size:22px">${s.max}</div></div>
+  </div>${isCon?'<span class="badge b-red">Area of concern</span> ':''}${isDiv?'<span class="badge b-violet">Most diverse</span> ':''}
+  <div style="margin-top:10px;font-size:12px;color:var(--tx3)">Individual scores: ${s.scores.join(', ')}</div>`;
+}
+
+// MAP TABLE
+const MAP=[
+  {s:'Explicit instruction',src:'EEF (2021)',ti:'H',ri:'M',sa:'H'},
+  {s:'Metacognitive strategies',src:'EEF (2021/2025)',ti:'H',ri:'H',sa:'H'},
+  {s:'Scaffolding — graduated removal',src:'EEF / nasen',ti:'H',ri:'M',sa:'M'},
+  {s:'Zones of regulation',src:'Kuypers (2011)',ti:'M',ri:'H',sa:'M'},
+  {s:'Daily report card',src:'Pelham et al.',ti:'H',ri:'H',sa:'M'},
+  {s:'Universal Design for Learning',src:'CAST (2018)',ti:'H',ri:'M',sa:'H'},
+  {s:'Positive behaviour support',src:'NICE NG93',ti:'M',ri:'H',sa:'H'},
+  {s:'Adaptive teaching',src:'EEF / DfE',ti:'H',ri:'M',sa:'H'},
+  {s:'Chunked learning & brain breaks',src:'Sweller / Ratey',ti:'H',ri:'M',sa:'H'},
+  {s:'Think-pause-share',src:'Barkley (1997)',ti:'M',ri:'H',sa:'H'},
+  {s:'Pupil–teacher relationships',src:'Dimitrellou (2019)',ti:'M',ri:'M',sa:'H'},
+  {s:'Physical activity & movement',src:'Song et al. (2023)',ti:'M',ri:'H',sa:'H'},
+  {s:'Targeted mindfulness (opt-in only)',src:'Zhang et al. (2023)',ti:'M',ri:'H',sa:'H'},
+  {s:'Autonomy-supportive teaching (SDT)',src:'Ryan & Deci / Guay (2022)',ti:'H',ri:'M',sa:'H'},
+  {s:'Goal Management Training',src:'Souza et al. (2024)',ti:'H',ri:'M',sa:'H'},
+  {s:'TA: metacognitive questioning',src:'EEF (2025)',ti:'H',ri:'M',sa:'H'},
+  {s:'TA: structured interventions',src:'EEF (2025)',ti:'H',ri:'H',sa:'H'},
+];
+function dot(v){const bg=v==='H'?'#EAF3DE':v==='M'?'#FFF0D6':'#FDECEA';const col=v==='H'?'#2D5E10':v==='M'?'#8A4F00':'#8B1F1F';return `<td style="text-align:center"><span style="background:${bg};color:${col};font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px">${v==='H'?'High':v==='M'?'Mid':'Low'}</span></td>`}
+function buildMap(){const b=document.getElementById('mapBody');MAP.forEach(r=>{b.innerHTML+=`<tr><td style="font-size:13px;font-weight:500">${r.s}</td><td style="font-size:11px;color:var(--tx3)">${r.src}</td>${dot(r.ti)}${dot(r.ri)}${dot(r.sa)}</tr>`})}
+function buildFullStats(){const b=document.getElementById('statsBody');STATS.forEach(s=>{const c=CONCERNS.includes(s.name);const d=s.name===DIVERSE;const badge=c?'<span class="badge b-red">Concern</span>':d?'<span class="badge b-violet">Most diverse</span>':'—';b.innerHTML+=`<tr><td style="font-size:13px">${s.name}</td><td style="font-weight:600">${s.avg}</td><td>${s.sd}</td><td>${s.min}</td><td>${s.max}</td><td>${badge}</td></tr>`})}
+
+// STRATEGIES
+const STRATS=[
+  {n:1,name:'Explicit instruction (I do, we do, you do)',src:'EEF — Special Educational Needs in Mainstream Schools (2021)',tags:['ti','sa','wm'],body:`Breaking complex concepts into small sequential steps with teacher modelling, followed by guided then independent practice. Based on Rosenshine's Principles of Instruction.<br><br><strong>In the classroom:</strong><ul><li>Teach in small sequenced steps — one concept at a time</li><li>Use worked examples before students attempt tasks</li><li>Anticipate and pre-address common misconceptions</li><li>Model → guided practice → independent: never skip to independent too quickly</li><li>Frequent comprehension checks before progressing</li></ul>`},
+  {n:2,name:'Metacognitive strategies',src:'EEF — +8 months additional progress. Updated guidance 2025.',tags:['ti','ri','sa','wm'],body:`Teaching students to plan, monitor, and evaluate their own thinking. EEF rates metacognition as the highest-impact, lowest-cost strategy available. Updated 2025 guidance includes explicit SEND adaptations.<br><br><strong>In the classroom:</strong><ul><li>Graphic organisers to structure thinking before writing</li><li>"Think aloud" modelling — narrate your thought process during tasks</li><li>Self-monitoring checklists students use during lessons</li><li>Pre-task: "What do I know? What do I need? What's step one?"</li><li>Post-task: "What went well? What would I change?"</li><li>KWL grids to activate and extend prior knowledge</li></ul>`},
+  {n:3,name:'Scaffolding — graduated removal',src:'EEF (2021) / nasen / EEF TA Guidance (2025)',tags:['ti','wm','sa'],body:`Temporary structured support progressively withdrawn as independence grows. Indefinite scaffolding creates dependency. Plan the removal schedule from day one.<br><br><strong>In the classroom:</strong><ul><li>Writing frames, sentence starters, structure strips</li><li>Knowledge organisers with key vocabulary and visual cues</li><li>Partially completed examples students extend</li><li>NOW/NEXT boards for lesson structure</li><li>Reduce supports over a half-term with explicit withdrawal plan</li><li>Always apply "least help first" before deploying any scaffold</li></ul>`},
+  {n:4,name:'Zones of regulation',src:'Kuypers (2011) — widely adopted across UK schools',tags:['ec','ri','sa'],body:`Students learn to identify their regulatory state: Blue (low), Green (ready), Yellow (heightened), Red (explosive). Whole-school consistency is essential — isolated classroom use has limited effect.<br><br><strong>In the classroom:</strong><ul><li>Display on walls as a permanent reference</li><li>Lesson check-ins: "What zone are you in today?"</li><li>Students identify personal strategies to move to Green</li><li>Whole-school consistent language required for maximum effect</li><li>Embed in tutor time and PSHE, not only individual lessons</li></ul>`},
+  {n:5,name:'Daily report card (DRC)',src:'Pelham et al. (2016) — strongly evidenced for ADHD and EF difficulties',tags:['ti','ri','sa'],body:`A structured school-to-home card where teachers rate students against 3–5 daily targets. Parents reinforce at home. Recommended as a behaviour-therapy-first approach before other interventions for EF difficulties.<br><br><strong>In the classroom:</strong><ul><li>3 positively worded, specific, achievable daily targets</li><li>Teacher marks each at lesson end (1–3 or yes/no)</li><li>Card goes home and triggers a consistent, agreed home response</li><li>Targets reviewed monthly — co-produce with the student</li></ul>`},
+  {n:6,name:'Universal Design for Learning (UDL)',src:'CAST (2018) — RCT evidence (PMC 2023)',tags:['ti','sa','ec'],body:`Proactive lesson design accessible to all from the outset — not retrofit adjustments. Three principles: multiple means of representation, action/expression, and engagement.<br><br><strong>In the classroom:</strong><ul><li>Genuine task choice: written, oral, visual, or digital</li><li>Information in multiple formats: video, diagram, text</li><li>Connect content explicitly to student interests</li><li>Flexible assessment formats and pacing</li><li>Self-regulation and goal-setting built into lesson design</li></ul>`},
+  {n:7,name:'Positive behaviour support (PBS)',src:'NICE Guideline NG93 / DuPaul & Stoner (2014)',tags:['ri','sa','ec'],body:`Proactive, preventative approach: teach and reinforce desired behaviours rather than punish unwanted ones. All behaviour is communication.<br><br><strong>In the classroom:</strong><ul><li>Maximum 5 clear, positively worded classroom rules displayed</li><li>Specific positive feedback — name the exact behaviour</li><li>Pre-correction before difficult transitions</li><li>Environmental adjustments: seating, lighting, noise levels</li><li>Consistent, predictable lesson structures school-wide</li></ul>`},
+  {n:8,name:'Adaptive teaching',src:'EEF / Alex Quigley / Education Southwest',tags:['ti','sa','wm'],body:`Anticipate barriers, plan to address them, use live assessment to detect issues, adapt in the moment. Goes beyond static differentiation.<br><br><strong>In the classroom:</strong><ul><li>Anticipate which students may struggle during planning</li><li>Prepare scaffolds and re-teaching approaches in advance</li><li>Mini-whiteboards, exit tickets, targeted questioning in real time</li><li>Flexible in-the-moment groupings for re-teaching</li><li>Use TA pre-briefing to align adaptive support before lessons</li></ul>`},
+  {n:9,name:'Chunked learning & structured brain breaks',src:'Cognitive Load Theory (Sweller) / Ratey (2008)',tags:['sa','ti'],body:`Breaking lessons into 10–12 minute focused blocks with brief resets. Attention is sustainable in short structured blocks far more effectively than extended periods. Note: these are brief resets, not the sustained PA intervention (strategy 12).<br><br><strong>In the classroom:</strong><ul><li>10–12 minute activity blocks followed by a 2-minute reset</li><li>Active engagement check every 10 minutes: mini-whiteboard, partner talk</li><li>Structured movement breaks — standing, position change</li><li>Visible countdown timers on the board</li></ul>`},
+  {n:10,name:'"Think–pause–share" & turn-taking frameworks',src:'Barkley (1997) / Meichenbaum (1977)',tags:['ri','sa'],body:`Externalise the waiting requirement — removing the burden of internal impulse control from students with response inhibition difficulties.<br><br><strong>In the classroom:</strong><ul><li>30-second silent thinking pause before responses — no hands up</li><li>Traffic light cards: students signal when they have an answer</li><li>Lollipop sticks for equitable, predictable questioning</li><li>Sentence stems displayed: "I think… because…"</li><li>Comment cards for written contributions — removes calling-out impulse</li></ul>`},
+  {n:11,name:'Pupil–teacher relationships',src:'Dimitrellou & Male (2019) / Inclusion in Practice Report (2025)',tags:['ec','ti','sa'],body:`The most consistent finding across all SEND research: student–teacher relationship quality is the strongest predictor of academic outcomes and wellbeing.<br><br><strong>In the classroom:</strong><ul><li>Regular 1–2 minute low-stakes check-ins at lesson start or end</li><li>Use student interests within lesson examples and contexts</li><li>Celebrate effort and progress privately before publicly</li><li>Involve students in setting their own targets — co-production improves engagement</li><li>Avoid public correction; use proximity and quiet redirection</li></ul>`},
+  {n:12,name:'Physical activity & cognitively engaging movement',src:'Song et al. (2023) PLoS ONE meta-analysis — 24 RCTs, n=914',tags:['ri','sa','wm'],body:`24 RCTs (914 participants with ADHD) found PA improved inhibitory control (SMD −0.50), working memory (SMD −0.50), and cognitive flexibility (SMD −0.45). Aerobic PA over 6–12 weeks at moderate-to-vigorous intensity produced the strongest effects. Cognitively engaging movement (requiring decision-making, sequencing) outperforms passive exercise.<br><br><strong>In the classroom / school:</strong><ul><li>10-minute structured aerobic movement 3–4× per week embedded in routine</li><li>Kinaesthetic lesson activities: sorting tasks, gallery walks, physical timelines</li><li>Cognitively demanding tasks during movement — not passive stretching</li><li>6–12 weeks consistent scheduling for lasting EF impact</li><li>Advocate for regular timetabled PE as part of SEND support planning</li></ul>`},
+  {n:13,name:'Targeted mindfulness practices (opt-in, not whole-class)',src:'Zhang et al. (2023) meta-analysis; Zainal & Newman (2024) 111-RCT meta-analysis',tags:['ri','sa','ec'],body:`<div class="warn-box"><strong>Universal whole-class MBI delivery has been shown ineffective</strong> — A 2024 Finnish cluster RCT found zero benefit for adolescents with ADHD symptoms from a universal 9-week school programme. Only targeted, opt-in, adapted delivery has evidence.</div><br>The 2023 meta-analysis of RCTs found targeted MBIs produced significant positive effects on EF (g = −0.35) and inattention in ADHD.<br><br><strong>In the classroom (targeted use only):</strong><ul><li>Opt-in 5-minute grounding/breathing routines for identified students at transitions</li><li>"Focus reset" cards students can self-initiate before tasks</li><li>Attention-anchoring techniques taught in small SEND groups or 1:1</li><li>Combine with metacognitive reflection: "What zone am I in?"</li><li>Brief daily practice more effective than occasional longer sessions</li></ul>`},
+  {n:14,name:'Autonomy-supportive teaching (Self-Determination Theory)',src:'Ryan & Deci (2017); Guay (2022) review; 144-study meta-analysis, 79,000+ students',tags:['ti','sa','ec'],body:`Three innate needs: autonomy (ownership), competence (feeling effective), relatedness (feeling connected). Teacher autonomy support is the strongest predictor of intrinsic motivation — more so than parental support. Directly addresses the motivation–attention link your Q2 data flagged.<br><br><strong>In the classroom:</strong><ul><li>Meaningful task choices — not cosmetic: "written, diagram, or voice note?"</li><li>Explain the <em>why</em> behind activities — SEND students disengage faster from unexplained tasks</li><li>Take the student's perspective explicitly before redirecting</li><li>Mastery-oriented feedback: comment on progress over time, not just single performance</li><li>Avoid controlling language and public pressure — these actively thwart autonomy for SEND students</li></ul>`},
+  {n:15,name:'Goal Management Training (GMT) — embedded in lessons',src:'Souza et al. (2024) Brain Sciences — naturalistic pilot RCT',tags:['ti','wm','sa'],body:`GMT embedded in daily school activities (16 sessions, students with EF difficulties) produced significant improvements in working memory, inhibition, and teacher-rated behaviour. Naturalistic, contextualised delivery consistently outperforms decontextualised skills training.<br><br><strong>In the classroom:</strong><ul><li><strong>STOP–THINK–PLAN</strong> routine before every independent task: goal + first step + "stuck plan"</li><li>Visual goal ladders on desks — students tick steps as completed</li><li>Teacher/TA prompt: "What's your goal for the next 10 minutes?"</li><li>End-of-task review: "Did you achieve it? What would you change?"</li><li>Embed across all subjects — contextual consistency is what produces the effect</li></ul>`},
+];
+function buildStrats(){
+  const c=document.getElementById('stratList');
+  STRATS.forEach(s=>{
+    const tags=s.tags.map(t=>`<span class="tag ${t}">${TL[t]}</span>`).join('');
+    const d=document.createElement('div');d.className='sc';d.dataset.tags=s.tags.join(',');
+    d.innerHTML=`<div class="sh" onclick="tog(this)"><div class="snum">${s.n}</div><div class="stl"><div class="snm">${s.name}</div><div class="src">${s.src}</div></div><div class="chev">▼</div></div><div class="sbody">${s.body}<div class="trw">${tags}</div></div>`;
+    c.appendChild(d);
+  });
+}
+function tog(h){const b=h.nextElementSibling;const cv=h.querySelector('.chev');b.classList.toggle('open');cv.classList.toggle('co')}
+function fS(tag,btn){
+  document.querySelectorAll('.fr .fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.sc').forEach(c=>{c.style.display=(tag==='all'||c.dataset.tags.split(',').includes(tag))?'':'none'});
+}
+
+// TRAINEE TOOLS
+const TT=[
+  {n:'vc',ico:'🔄',name:'Retrieval practice',ev:'EEF: +6 months progress · Low cost · Strong evidence',imp:85,src:'Roediger & Karpicke (2006); EEF Teaching & Learning Toolkit',body:'Regularly asking students to recall information from memory strengthens long-term retention far more than re-reading or re-studying. One of the most replicated findings in cognitive science.',steps:['Start each lesson with a 3–5 question no-stakes quiz on prior content','Use mini-whiteboards — students write answers simultaneously, reducing anxiety','Mix retrieval formats: MCQ, free recall, image prompts, "brain dump"','Revisit content from the previous week, 3 weeks ago, and last term','Never use retrieval practice as a high-stakes test — low pressure is essential for SEND students'],warn:'For students with high assessment anxiety (common in SEND), make it absolutely explicit this is a learning tool, not a test. Anonymous whiteboards or private written responses work best.',info:'Retrieval practice benefits SEND students disproportionately because it strengthens memory encoding that is often weaker in students with working memory difficulties.'},
+  {n:'vc',ico:'📅',name:'Spaced practice',ev:'EEF: +5 months progress · Low cost · Strong evidence',imp:78,src:'Cepeda et al. (2008); Dunlosky et al. (2013)',body:'Distributing learning across time rather than concentrating it in a single block (massed practice). Spacing learning with gaps between revisits dramatically improves long-term retention.',steps:['Build a spaced review schedule into schemes of work — not just for exam prep','Return to key concepts after 1 week, 3 weeks, and 6 weeks','Begin each new topic with a brief retrieval task on related prior content','Use interleaving: mix problems from different topics rather than one topic at a time','Share the spacing rationale with students — understanding why improves compliance'],warn:'Spaced practice initially feels less productive than massed practice (the "fluency illusion"). Prepare SEND students for this feeling — early difficulty is a sign the strategy is working.',info:'For students with task initiation difficulties, spaced retrieval starters give a predictable, low-anxiety entry point to every lesson.'},
+  {n:'',ico:'🗣️',name:'Oracy and metacognitive talk',ev:'EEF: +7 months · Low cost · Strong evidence (updated 2025 guidance)',imp:90,src:'EEF Metacognition & Self-Regulated Learning (2025); Alexander — Dialogic Teaching',body:'Structured academic talk helps students externalise and refine their thinking. The EEF\'s updated 2025 metacognition guidance places significantly greater emphasis on oracy as a vehicle for self-regulation.',steps:['Use structured talk frames: "I think… because…", "I agree/disagree because…", "An alternative view is…"','Think-pair-share before whole-class responses — gives processing time critical for SEND students','Teacher models metacognitive thinking aloud: "I\'m not sure here, so I\'m going to…"','Pose "How did you work that out?" alongside "What\'s the answer?"','Comment cards and whiteboards for students who struggle to speak in whole-class settings'],warn:'Do not conflate oracy with confidence — many SEND students have excellent thinking but need structured, low-pressure formats to share it. Never cold-call without a thinking pause.',info:'The updated EEF guidance specifically notes that oracy supports metacognition for SEND students and can close gaps when structured consistently across subjects.'},
+  {n:'',ico:'✅',name:'Formative assessment (live classroom checking)',ev:'Dylan Wiliam (2011): +6 months · Low cost · Very strong evidence',imp:82,src:'Wiliam & Black (1998); EEF — Assessment for Learning',body:'Continuously checking what every student understands in real time, and adjusting teaching accordingly. The five strategies from Wiliam\'s framework are among the most evidenced practices in education.',steps:['Mini-whiteboards: whole class responds simultaneously — no one can hide','Exit tickets: one question at lesson end that reveals what was learned vs. what was not','Hinge questions: binary or MCQ questions that reveal whether a class is ready to move on','Lollipop sticks for cold-calling — all students must expect to be asked, not just hand-raisers','Traffic light self-assessment: students signal their confidence level on each concept'],warn:'For SEND students, formative assessment is especially powerful — but only if wrong answers are treated as learning data, not as failures. Normalise mistakes explicitly.',info:'Students with EF difficulties often do not self-monitor accurately. Structured formative checkpoints provide external monitoring scaffolds until internal monitoring develops.'},
+  {n:'',ico:'📝',name:'Explicit vocabulary instruction',ev:'EEF: +6 months · Low cost · Strong evidence (secondary)',imp:76,src:'Beck, McKeown & Kucan (2013); EEF Improving Literacy in Secondary Schools (2023)',body:'Students with SEND are disproportionately affected by vocabulary gaps. Explicitly teaching Tier 2 (cross-curricular, academic) and Tier 3 (subject-specific) vocabulary before lessons begin is one of the highest-leverage changes a teacher can make.',steps:['Identify 5–10 key words before every new topic — include Tier 2 words (e.g. "analyse", "justify") not only subject vocabulary','Pre-teach using the Frayer model: definition, characteristics, examples, non-examples','Display vocabulary with visual cues throughout the unit — not just on introduction day','Teach morphology (word parts): students with SEND can often decode unfamiliar words with this tool','Encourage "vocabulary detectives": notice where words appear outside the subject'],warn:'Do not assume students know Tier 2 words such as "evaluate", "compare", or "suggest". These are the words that cause SEND students to disengage from tasks they could otherwise complete.',info:'Pre-teaching vocabulary reduces working memory load during the main lesson, directly addressing one of this cohort\'s top concerns.'},
+  {n:'',ico:'🎯',name:'Clear learning intentions + success criteria',ev:'Hattie (2009): effect size 0.75 · Low cost · Very strong evidence',imp:88,src:'Hattie — Visible Learning (2009); Wiliam (2011)',body:'Sharing what students are learning and what success looks like reduces anxiety, supports task initiation, and gives students with EF difficulties a concrete anchor point for the lesson.',steps:['Display the learning objective AND the success criteria — not just "learning objective: to understand X"','Frame success criteria as student-facing "I can…" statements','Refer back to success criteria during and at the end of the lesson — not only the beginning','Involve students in constructing success criteria where possible (builds ownership)','For SEND students, break success criteria into smaller sub-steps and display throughout the lesson'],warn:'Generic objectives ("to understand the French Revolution") give students with task initiation difficulties nothing to anchor to. Make success concrete: "I can explain two causes and link them with evidence."',info:'Clear success criteria are one of the lowest-cost ways to support task initiation — students know exactly where to start and what the first step looks like.'},
+  {n:'',ico:'🏗️',name:'Consistent, predictable lesson routines',ev:'Cognitive Load Theory (Sweller); Baddeley (working memory research)',imp:70,src:'Sweller (1988); Willingham (2009) — Why Don\'t Students Like School',body:'Predictable lesson structure reduces cognitive load by making the routine automatic, freeing up working memory for learning. For students with EF difficulties, unpredictability is a barrier to engagement before the content has even begun.',steps:['Use the same lesson structure consistently: starter → objective → input → practice → review','Display a visual lesson agenda or NOW/NEXT board at the start of every lesson','Signal transitions explicitly: "In two minutes we are moving to…"','Starter activities should be immediately accessible without instruction — students begin independently on arrival','End every lesson with the same brief reflection routine'],warn:'Changing your lesson structure for "variety" creates cognitive overhead for SEND students. Consistency of structure ≠ repetitive content — vary the content within a predictable structure.',info:'For students with task initiation difficulties (the #1 concern in this cohort), a predictable starter they can begin without asking for help is transformative.'},
+];
+function buildTT(){
+  const c=document.getElementById('ttList');
+  TT.forEach((t,i)=>{
+    const bw=t.warn?`<div class="warn-box">${t.warn}</div>`:'';
+    const bi=t.info?`<div class="info-box">${t.info}</div>`:'';
+    const steps=t.steps.map((s,j)=>`<li class="tool-step"><div class="step-n">${j+1}</div><div class="step-tx">${s}</div></li>`).join('');
+    const d=document.createElement('div');d.className='sc';
+    d.innerHTML=`<div class="sh" onclick="tog(this)">
+      <div class="snum ${t.n}" style="font-size:18px;background:var(--surf2);color:var(--tx)">${t.ico}</div>
+      <div class="stl"><div class="snm">${t.name}</div><div class="src">${t.src}</div></div>
+      <div class="chev">▼</div></div>
+      <div class="sbody">
+        <div class="impact-bar"><div class="impact-lbl">EF impact</div><div class="impact-track"><div class="impact-fill" style="width:${t.imp}%"></div></div><div class="impact-val">${t.imp}% evidence weight</div></div>
+        <p style="margin-bottom:12px">${t.body}</p>
+        <strong style="display:block;margin-bottom:8px">How to implement — step by step:</strong>
+        <ul class="tool-steps">${steps}</ul>
+        ${bw}${bi}
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+// TA PAGE
+const EEFRECS=[
+  {n:1,t:'Embed a wider school culture focused on high-quality teaching and inclusion',d:'SEND pupils should spend at least as much time with the classroom teacher as other pupils — if not more. TAs supplement teaching; they do not replace it. The teacher retains primary responsibility for every student\'s learning, including those with SEND.'},
+  {n:2,t:'Engage all staff in understanding effective TA deployment',d:'All teachers must understand their primary responsibility for SEND pupils and plan lessons that do not rely on TA presence as the sole adaptation. Without shared understanding, TA deployment defaults to proximity-based support.'},
+  {n:3,t:'Develop TAs\' knowledge, skills, and understanding',d:'Professional development is not optional. 23% of secondary TAs (DfE, 2024) feel insufficiently trained. TAs need explicit training in: scaffolding for independence, metacognitive questioning, the profiles of specific SEND needs, and how to deliver structured interventions.'},
+  {n:4,t:'Support pupils to develop independence through scaffolding',d:'Every classroom interaction should apply "least help first". The goal is always independent learning — not task completion with TA assistance. Indefinite scaffolding creates over-reliance.'},
+  {n:5,t:'Deploy TAs to deliver structured one-to-one or small-group interventions',d:'Meta-analysis (EEF, 2025): structured TA-led interventions produce effect size +0.35 (~4 months additional progress). Required: structured evidence-based programme · explicit TA training · regular uninterrupted sessions · shared progress monitoring · teacher review.'},
+];
+function buildTA(){
+  const r=document.getElementById('eefRecs');
+  EEFRECS.forEach(e=>{r.innerHTML+=`<div class="rec-c"><div class="rec-n">${e.n}</div><div><div class="rec-t">${e.t}</div><div class="rec-d">${e.d}</div></div></div>`});
+
+  // FIXED: cells added directly to dd-grid, no inner wrapper
+  const DD=[
+    {stop:'Sitting beside one student for the full lesson',start:'Move around — position yourself to support the whole class'},
+    {stop:'Copying notes or writing sentences on behalf of the student',start:'Use part-completed frameworks the student fills in independently'},
+    {stop:'Giving answers or completing task steps for the student',start:'"Least help first": prompt → cue → model → scaffold → then assist'},
+    {stop:'Prioritising task completion over the quality of thinking',start:'Focus on the thinking process, not the finished product'},
+    {stop:'Closed questions: "Do you understand? Shall I help?"',start:'Open metacognitive prompts — see question bank below'},
+    {stop:'Intervening immediately when a student struggles',start:'Allow productive struggle — wait at least 60 seconds before stepping in'},
+    {stop:'Speaking for or interpreting instructions for the student',start:'Use think-pair-share and comment cards so the student contributes their own voice'},
+    {stop:'Working exclusively with SEND students in every lesson',start:'Work flexibly across mixed groups — teacher also maintains SEND relationships'},
+  ];
+  const g=document.getElementById('ddGrid');
+  g.innerHTML='<div class="dd-hdr stop">Stop doing this</div><div class="dd-hdr start">Start doing this instead</div>';
+  DD.forEach(row=>{
+    const s=document.createElement('div');s.className='dd-cell stop';s.textContent=row.stop;
+    const e=document.createElement('div');e.className='dd-cell start';e.textContent=row.start;
+    g.appendChild(s);g.appendChild(e);
+  });
+
+  const HC=['Pause & wait','Prompt (hint)','Cue (clue)','Model (show)','Scaffold (frame)','Assist (guide)'];
+  const hc=document.getElementById('helpChain');
+  HC.forEach((h,i)=>{
+    const d=document.createElement('div');d.className='hci';d.innerHTML=`${h}<span>Level ${i+1}</span>`;hc.appendChild(d);
+    if(i<HC.length-1){const a=document.createElement('div');a.className='hca';a.textContent='→';hc.appendChild(a)}
+  });
+  const QS=[
+    {phase:'Before the task — activating prior knowledge',qs:['What do you already know about this?','What does the task want you to do?','What\'s your first step?','What might make this tricky? How will you handle that?','What resources could help you?']},
+    {phase:'During the task — monitoring progress',qs:['How\'s it going? Are you on track with your goal?','What have you done? What\'s still left to do?','Does anything remind you of something you\'ve done before?','What could you try if you get stuck?','Does your answer make sense so far?']},
+    {phase:'After the task — evaluating and reflecting',qs:['What went well in how you approached that?','What would you do differently next time?','What did you learn from doing this?','Where else could you use this skill?','What was hard — and how did you manage it?']},
+  ];
+  const qb=document.getElementById('qBank');
+  QS.forEach(p=>{qb.innerHTML+=`<div class="qb-phase"><div class="qb-lbl">${p.phase}</div><div class="qb-qs">${p.qs.map(q=>`<div class="qb-q">${q}</div>`).join('')}</div></div>`});
+}
+
+// NASEN
+const NASEN=[
+  {n:'Multi-sensory teaching',b:'Visual, verbal, auditory, and kinaesthetic channels simultaneously. Concrete–Pictorial–Abstract (CPA) approach. Turn word problems into pictures or scenarios. Signs, symbols, oral rehearsal, and physical movement tied to content.',tags:['sa','ti','wm']},
+  {n:'Reducing working memory burden',b:'Task boards displayed throughout lessons. Single-step instructions. Pre-teach vocabulary before lessons. Repeat instructions in the same words. Word banks, glossaries, and key word mats on desks. Dictaphones or Talking Tins for students who struggle with verbal instructions.',tags:['wm','ti','sa']},
+  {n:'Interactive whole-class strategies',b:'Mini-whiteboards for low-stakes responses. Lollipop sticks for equitable questioning. Structured talking partners before whole-class sharing. Comment cards. Binary choices ("Show A or B"). Defined roles in group work.',tags:['ri','sa','ti']},
+  {n:'Pre-teaching vocabulary',b:'5-minute vocabulary preview before the main lesson. Vocabulary displayed with visual cues throughout the unit. Home/school word books. Subject-specific vocabulary displays. Teach students to infer meaning from context.',tags:['sa','wm']},
+  {n:'Sensory & environmental adjustments',b:'Seat so light is in front, not behind. Reduce background noise during independent work. Matt photocopies to reduce eye strain. Dyslexia-friendly fonts (Arial, 14pt+). Pencil grips, angled slopes, additional desk space.',tags:['sa','ec']},
+  {n:'SEMH classroom strategies',b:'Positions of responsibility to raise self-esteem. Regular legitimate brain breaks. Fidget tools during teacher-led input. Stick to set task times — do not extend unexpectedly. Short, positive, precise instructions. Visual timetables and task lists. Home/school positive communication book.',tags:['ec','ri','ti']},
+  {n:'Graduated approach (Assess–Plan–Do–Review)',b:'Every teacher\'s responsibility — not only the SENCO\'s. Assess holistically including strengths and interests. Plan with SENCO, family, and student. Do consistently across all classrooms. Review regularly and adapt or withdraw when no longer needed.',tags:['ti','ri','sa','wm','ec']},
+  {n:'Effective TA deployment (aligned with EEF 2025)',b:'TAs step back during independent work — do not sit beside the student. Use metacognitive questioning to develop independence. Share lesson plans in advance. TAs work flexibly across mixed groups, not exclusively with SEND students. Teacher retains primary responsibility.',tags:['ti','wm']},
+  {n:'Six nurture principles for learning',b:'(1) Learning understood developmentally. (2) Classroom as a safe, predictable base. (3) Nurture for wellbeing — relationships before curriculum. (4) Language is vital — explicit language teaching underpins learning. (5) All behaviour is communication. (6) Transitions matter — careful management reduces anxiety.',tags:['ec','ri','sa']},
+];
+function buildNasen(){
+  const c=document.getElementById('nasenList');
+  NASEN.forEach((s,i)=>{
+    const tags=s.tags.map(t=>`<span class="tag ${t}">${TL[t]}</span>`).join('');
+    const d=document.createElement('div');d.className='sc';
+    d.innerHTML=`<div class="sh" onclick="tog(this)"><div class="snum tc">${i+1}</div><div class="stl"><div class="snm">${s.n}</div><div class="src">nasen Teacher Toolkit / Whole School SEND Handbook</div></div><div class="chev">▼</div></div><div class="sbody">${s.b}<div class="trw">${tags}</div></div>`;
+    c.appendChild(d);
+  });
+}
+
+// REFERENCES
+const REFS=[
+  {t:'EEF (2025) — Deployment of Teaching Assistants Guidance Report',d:'Updated March 2025. Synthesises 52 studies. Five recommendations. Meta-analysis effect size for structured TA interventions: +0.35 (~4 months). TAs supplement, not replace, high-quality teaching.',u:'https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/teaching-assistants'},
+  {t:'EEF (2025) — Metacognition and Self-Regulated Learning (updated guidance)',d:'High impact, low cost (+8 months). Updated guidance includes explicit SEND adaptations, TA scaffolding frameworks, oracy emphasis, and "least help first" tools.',u:'https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/metacognition-and-self-regulated-learning'},
+  {t:'EEF (2023) — Improving Literacy in Secondary Schools',d:'Includes explicit vocabulary instruction evidence for secondary SEND cohorts.',u:'https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/literacy-ks3-ks4'},
+  {t:'EEF (2021) — Special Educational Needs in Mainstream Schools',d:'Foundational guidance for explicit instruction, scaffolding, UDL, and adaptive teaching in SEND.',u:'https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/send'},
+  {t:'EEF — Achievement for All RCT (negative result)',d:'Whole-school SEND improvement programme. Children in AfA schools made 2 months less progress in reading and 3 months less progress in maths (target children) compared to control schools. Very high security rating (5/5).',u:'https://educationendowmentfoundation.org.uk/projects-and-evaluation/projects/achievement-for-all'},
+  {t:'Song et al. (2023) — Physical activity and EF in ADHD: meta-analysis of 24 RCTs, n=914',d:'PLoS ONE 18(8). PA improved inhibitory control (SMD −0.50), working memory (SMD −0.50), and cognitive flexibility (SMD −0.45).',u:'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289732'},
+  {t:'Zhang et al. (2023) — MBIs on EF and symptoms in ADHD: meta-analysis of RCTs',d:'Journal of Attention Disorders. Targeted MBIs: EF effect g = −0.35. Does not apply to universal whole-class delivery.',u:'https://journals.sagepub.com/doi/abs/10.1177/10870547231154897'},
+  {t:'Holopainen et al. (2024) — Universal whole-class MBI: cluster RCT (null result)',d:'PubMed. Universal 9-week whole-class programme: no positive effects on ADHD symptoms for adolescents. Targeted delivery required.',u:'https://pubmed.ncbi.nlm.nih.gov/39676250/'},
+  {t:'Zainal & Newman (2024) — MBIs and cognitive functioning: meta-analysis of 111 RCTs',d:'Health Psychology Review 18(2). MBIs improved sustained attention and inhibition when delivered appropriately.',u:'https://pmc.ncbi.nlm.nih.gov/articles/PMC10902202/'},
+  {t:'Guay, F. (2022) — Applying Self-Determination Theory to Education',d:'Review of SDT studies: autonomy-supportive teaching leads to intrinsic motivation and better outcomes including for students with disabilities.',u:'https://journals.sagepub.com/doi/10.1177/08295735211055355'},
+  {t:'Ryan, R.M. & Deci, E.L. (2017) — Self-Determination Theory (Guilford Press)',d:'Meta-analysis across 144 studies (79,000+ students): teacher autonomy support predicts need satisfaction and self-determined motivation more strongly than parental support.'},
+  {t:'Souza et al. (2024) — Goal Management Training: naturalistic pilot RCT',d:'Brain Sciences 14(1):70. GMT-based school programme in daily activities significantly improved EF and behaviour. Naturalistic contextualised delivery outperforms decontextualised training.',u:'https://www.mdpi.com/2076-3425/14/1/70'},
+  {t:'Roediger & Karpicke (2006) — Retrieval practice',d:'Test-Enhanced Learning. Science 319(5865). Foundational evidence that retrieval from memory substantially improves long-term retention over re-study.'},
+  {t:'Dunlosky et al. (2013) — Improving Students\' Learning with Effective Techniques',d:'Psychological Science in the Public Interest. Spaced practice and retrieval practice rated the two highest-utility strategies in a comprehensive review.'},
+  {t:'Wiliam, D. (2011) — Embedded Formative Assessment',d:'Solution Tree. Five key formative assessment strategies. Effect size ~0.6–0.7 on learning outcomes when consistently applied.'},
+  {t:'Hattie, J. (2009) — Visible Learning (Routledge)',d:'Meta-analysis of 800+ meta-analyses. Feedback and clear learning intentions rank in the top strategies by effect size.'},
+  {t:'Parliament Education Committee (2024) — Solving the SEND Crisis',d:'50 percentage point attainment gap between SEND and non-SEND pupils in 2023/24. Gap has not closed since 2015/16.',u:'https://publications.parliament.uk/pa/cm5901/cmselect/cmeduc/492/report.html'},
+  {t:'Blatchford et al. — DISS Project / EDTA Project',d:'Foundational UK research: unstructured TA deployment without training leads to negative effects on pupil independence, attainment, and access to teacher interaction.'},
+  {t:'Webster, R. et al. (2024) — TA deployment and teacher shortages (BERJ)',d:'Deploying TAs to cover classes disrupts provision specifically for SEND pupils.',u:'https://bera-journals.onlinelibrary.wiley.com/doi/10.1002/berj.4043'},
+  {t:'DfE (2024) — Use of Teaching Assistants in Schools',d:'76% of TAs want more training in SEND interventions; 23% of secondary TAs feel insufficiently trained.'},
+  {t:'LBBD Cabinet Report (2025) — Annual Education Performance Review 2024/25',d:'SEND pupils\' attainment at EYFS and KS2 above England average. Borough ranked 1st nationally for 3-year improvement. Attributed to sustained CPD and consistent strategy implementation.',u:'https://lbbd.moderngov.co.uk/documents/s177440/Education%20Performance%202024-25%20Report.pdf'},
+  {t:'Taylor et al. (2024) — Quality of teaching and Progress 8 in English secondary schools',d:'British Journal of Educational Research. Peer classroom observation (not leadership observation) most strongly associated with student progress gains.',u:'https://www.tandfonline.com/doi/full/10.1080/09243453.2024.2398601'},
+  {t:'nasen — Teacher Handbook: SEND (2nd edition)',d:'DfE-funded. Free download.',u:'https://nasen.org.uk/resources/teacher-handbook-send'},
+  {t:'Kuypers, L. (2011) — The Zones of Regulation (Think Social Publishing)',d:'Curriculum framework for emotional and self-regulation.'},
+  {t:'Pelham et al. (2016) — Daily Report Card (JCCAP)',d:'School-based RCT evidence for behaviour-therapy-first approach.'},
+  {t:'CAST (2018) — Universal Design for Learning Guidelines',d:'udlguidelines.cast.org',u:'https://udlguidelines.cast.org'},
+  {t:'Barkley, R. (1997) — ADHD and the Nature of Self-Control (Guilford Press)',d:'Foundational text on response inhibition and executive function.'},
+  {t:'NICE Guideline NG93 (2018)',d:'Learning Disabilities and Behaviour that Challenges.',u:'https://www.nice.org.uk/guidance/ng93'},
+  {t:'Dawson & Guare (2010) — Executive Skills in Children and Adolescents (Guilford Press)',d:'Practical school and home guide.'},
+  {t:'Whole School SEND (2023)',d:'wholeschoolsend.org.uk',u:'https://www.wholeschoolsend.org.uk'},
+];
+function buildRefs(){
+  const c=document.getElementById('refList');
+  REFS.forEach(r=>{c.innerHTML+=`<div class="ref-card"><strong>${r.t}</strong><p>${r.d}${r.u?` — <a href="${r.u}" target="_blank">${r.u}</a>`:''}</p></div>`});
+}
+
+// INIT
+buildBars();buildStrats();buildTT();buildTA();buildNasen();buildMap();buildFullStats();buildRefs();
+setTimeout(buildCharts,100);
+</script>
+</body>
+</html>
